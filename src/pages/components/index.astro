@@ -1,0 +1,112 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Modal from '@/components/ui/Modal.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import Tab from '@/components/ui/Tab.astro';
+import DrawerMenu from '@/components/ui/DrawerMenu/DrawerMenu.astro';
+import DrawerMenuOpenButton from '@/components/ui/DrawerMenu/DrawerMenuOpenButton.astro';
+
+const title = 'UI PAGE';
+const description = 'UI PAGE DESCRIPTION';
+---
+
+<Layout title={title} description={description}>
+  <div class="container">
+    <h1 class="heading">UI PAGE</h1>
+    <div class="components-container">
+      <div class="components-item -col">
+        <DrawerMenuOpenButton />
+      </div>
+      <div class="components-item -col">
+        <div>
+          <button type="button" data-modal-open="modal1">モーダル1を開く</button>
+          <Modal modal="modal1">
+            <Fragment slot="heading">モーダル1の見出し</Fragment>
+            <Fragment slot="content">
+              <p>テキスト</p>
+            </Fragment>
+            <Fragment slot="close-label">モーダル1を閉じる</Fragment>
+          </Modal>
+        </div>
+        <div>
+          <button type="button" data-modal-open="modal2">モーダル2を開く</button>
+          <Modal modal="modal2">
+            <Fragment slot="heading">モーダル2の見出し</Fragment>
+            <Fragment slot="content">
+              <p>テキスト</p>
+            </Fragment>
+            <Fragment slot="close-label">モーダル2を閉じる</Fragment>
+          </Modal>
+        </div>
+      </div>
+      <div class="components-item">
+        <Accordion>
+          <Fragment slot="summary">アコーディオンの見出し</Fragment>
+          <Fragment slot="content">アコーディオンの内容</Fragment>
+        </Accordion>
+        <Accordion>
+          <Fragment slot="summary">アコーディオンの見出し</Fragment>
+          <Fragment slot="content">アコーディオンの内容</Fragment>
+        </Accordion>
+        <Accordion>
+          <Fragment slot="summary">アコーディオンの見出し</Fragment>
+          <Fragment slot="content">アコーディオンの内容</Fragment>
+        </Accordion>
+      </div>
+      <div class="components-item -col">
+        <Tab>
+          <Fragment slot="tabs">
+            <a id="tab1" href="#tabpanel1" data-tab>Tab1</a>
+            <a id="tab2" href="#tabpanel2" data-tab>Tab2</a>
+            <a id="tab3" href="#tabpanel3" data-tab>Tab3</a>
+          </Fragment>
+          <Fragment slot="tabpanels">
+            <div role="tabpanel" id="tabpanel1" aria-labelledby="tab1" data-tab-panel>コンテンツ1</div>
+            <div role="tabpanel" id="tabpanel2" aria-labelledby="tab2" hidden="until-found" data-tab-panel>コンテンツ2</div>
+            <div role="tabpanel" id="tabpanel3" aria-labelledby="tab3" hidden="until-found" data-tab-panel>コンテンツ3</div>
+          </Fragment>
+        </Tab>
+        <Tab>
+          <Fragment slot="tabs">
+            <a id="tab4" href="#tabpanel1" data-tab>Tab4</a>
+            <a id="tab5" href="#tabpanel2" data-tab>Tab5</a>
+            <a id="tab6" href="#tabpanel3" data-tab>Tab6</a>
+          </Fragment>
+          <Fragment slot="tabpanels">
+            <div role="tabpanel" id="tabpanel4" aria-labelledby="tab1" data-tab-panel>コンテンツ4</div>
+            <div role="tabpanel" id="tabpanel5" aria-labelledby="tab2" hidden="until-found" data-tab-panel>コンテンツ5</div>
+            <div role="tabpanel" id="tabpanel6" aria-labelledby="tab3" hidden="until-found" data-tab-panel>コンテンツ6</div>
+          </Fragment>
+        </Tab>
+      </div>
+    </div>
+  </div>
+  <DrawerMenu />
+</Layout>
+
+<style lang="scss">
+  .container {
+    display: grid;
+    place-items: center;
+    height: 100%;
+  }
+
+  .heading {
+    font-size: 24px;
+  }
+
+  .components-container {
+    display: grid;
+    row-gap: rem(24);
+  }
+
+  .components-item.-col {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: rem(24);
+  }
+</style>
+
+<script>
+  console.log('UI PAGE script loaded');
+</script>

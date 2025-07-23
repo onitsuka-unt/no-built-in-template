@@ -1,0 +1,11 @@
+@use '@/styles/develop' as *;
+
+:root {
+  --base-inner-size: #{rem(960)};
+  --base-gutter-size: #{rem(32)};
+
+  --transition-primary: 0.3s;
+  --transition-hover: 0.3s var(--ease-out-cubic);
+
+  --opacity-primary: 0.7;
+}

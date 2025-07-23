@@ -1,0 +1,16 @@
+@use '../develop' as *;
+
+:root {
+  --typo-font-base: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Helvetica Neue', arial, meiryo, sans-serif;
+
+  --typo-size-base: 1rem;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  --line-height-base: 1.75;
+
+  --letter-spacing-base: 0.05em;
+}

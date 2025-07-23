@@ -1,0 +1,68 @@
+---
+const { modal } = Astro.props;
+const id = crypto.randomUUID();
+---
+
+<dialog class="modal" aria-labelledby={id} aria-modal="true" data-modal={modal}>
+  <button type="button" data-modal-close autofocus>
+    <span>
+      <slot name="close-label" />
+    </span>
+  </button>
+  <div class="container">
+    <h2 id={id} data-modal-heading><slot name="heading" /></h2>
+    <div>
+      <slot name="content" />
+    </div>
+  </div>
+</dialog>
+
+<style lang="scss">
+  .modal {
+    inline-size: min(100%, 840px);
+    block-size: min(100%, 475px);
+    margin: auto;
+    contain: strict;
+    color: var(--color-white);
+    background-color: var(--color-black);
+    transition:
+      opacity var(--transition-primary),
+      scale var(--transition-primary);
+
+    &:not([data-active='true']) {
+      opacity: 0;
+      scale: 0.95;
+    }
+
+    &::backdrop {
+      transition: opacity 0.5s;
+    }
+
+    &:not([data-active='true'])::backdrop {
+      opacity: 0;
+    }
+  }
+
+  .container {
+    block-size: 100%; /* モーダルを閉じる時にdialog要素ではないことを保証するため */
+  }
+
+  // Safariでのfocusを抑制するためのスタイル
+  :where(:root[data-mousedown] dialog *) {
+    outline: none;
+  }
+
+  [data-modal-open]:where(:root[data-mousedown] *) {
+    outline: none;
+  }
+</style>
+
+<script>
+  import initializeModal from '@/scripts/common/initializeModal';
+
+  const modals = document.querySelectorAll<HTMLDialogElement>('[data-modal]');
+
+  modals.forEach((modal) => {
+    initializeModal(modal);
+  });
+</script>

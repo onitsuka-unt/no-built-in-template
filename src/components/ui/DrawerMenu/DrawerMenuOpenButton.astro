@@ -1,0 +1,47 @@
+<button class="menu-openButton" type="button" aria-label="メニューを開く" data-role="open">
+  <span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </span>
+</button>
+
+<style lang="scss">
+  .menu-openButton {
+    display: grid;
+    place-items: center;
+    width: rem(60);
+    aspect-ratio: 1 / 1;
+    background-color: var(--color-black);
+
+    & > span {
+      position: relative;
+      width: 50%;
+      aspect-ratio: 1 / 0.7;
+    }
+
+    & > span > span {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background-color: var(--color-white);
+      transition:
+        translate var(--transition-primary),
+        rotate var(--transition-primary),
+        opacity var(--transition-primary);
+
+      &:first-child {
+        top: 0;
+      }
+
+      &:nth-child(2) {
+        top: 50%;
+        translate: 0 -50%;
+      }
+
+      &:last-child {
+        bottom: 0;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,26 @@
+<div class="container">
+  <header></header>
+  <main>
+    <slot />
+  </main>
+  <footer></footer>
+</div>
+
+<style lang="scss">
+  .container {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 100%;
+    min-height: 100vh;
+  }
+</style>
+
+<script>
+  import initializeViewport from '@/scripts/common/initializeViewport';
+  import disableCallOnNonMobile from '@/scripts/common/disableCallOnNonMobile';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initializeViewport();
+    disableCallOnNonMobile();
+  });
+</script>

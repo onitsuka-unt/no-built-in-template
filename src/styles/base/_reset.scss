@@ -1,0 +1,211 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: unset;
+  margin: unset;
+}
+
+:where(:root) {
+  // スクロールバーのスペースを確保する
+  scrollbar-gutter: stable;
+
+  // Safariブラウザで指定しない場合セリフ体のフォントが適用されるため、sans-serifを指定
+  font-family: sans-serif;
+  line-height: 1.5;
+
+  // @see https://ics.media/entry/240411/
+  // 単語の分割はデフォルトに依存
+  word-break: normal;
+
+  // テキストの折り返しを有効にして、gridやflexコンテナ内でのテキストの折り返しも有効にする
+  overflow-wrap: anywhere;
+
+  // 禁足処理を厳格に設定
+  line-break: strict;
+
+  // モバイルブラウザでのテキストサイズ調整を無効にする
+  text-size-adjust: auto;
+}
+
+:where(body) {
+  min-block-size: 100dvb;
+}
+
+:where(h1) {
+  // <section>要素内に配置された<h1>要素のfont-size, marginが欠けていると開発者ツールで警告がでるので抑制のために指定
+  // @see https://html.spec.whatwg.org/#sections-and-headings
+  margin-block: 0.67em;
+  font-size: 2em;
+}
+
+:where([hidden]:not([hidden='until-found'])) {
+  // @see https://griponminds.jp/blog/accessibility-report-03/#hidden-%E5%B1%9E%E6%80%A7%E3%81%A8%E3%81%AE%E6%AF%94%E8%BC%83
+  display: none !important;
+}
+
+:where(p:lang(en)) {
+  // 英語では段落の最後の行に単語が1つだけ残ることを「widow（ウィドウ）」や「orphan（オーファン）」と呼び、読みにくさの原因とされているらしいのでそれを防ぐ
+  text-wrap: pretty;
+}
+
+:where(ul, ol, menu) {
+  padding-inline-start: unset;
+
+  // スクリーンリーダーがリストとして認識しつつ、デフォルトのスタイルを無効化する
+  list-style-type: '';
+}
+
+:where(em:lang(ja)) {
+  font-weight: bolder;
+}
+
+:where(:is(i, cite, em, dfn, var):lang(ja)) {
+  // 斜体を無効化
+  font-style: unset;
+}
+
+:where(code, kbd, samp) {
+  // コード系の要素のテキスト調整
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: unset;
+  font-variation-settings: initial;
+  font-feature-settings: initial;
+  font-variant-ligatures: none;
+}
+
+:where(a:any-link) {
+  color: unset;
+  text-decoration-line: unset;
+
+  // 下線をフォントの太さに合わせる
+  text-decoration-thickness: from-font;
+}
+
+:where(img, svg, picture, video, canvas, model, audio, iframe, embed, object) {
+  max-inline-size: 100%;
+  block-size: auto;
+  vertical-align: bottom;
+}
+
+:where(iframe) {
+  border: unset;
+}
+
+:where(table) {
+  border-collapse: collapse;
+}
+
+:where(caption, th) {
+  text-align: unset;
+}
+
+:where(caption) {
+  text-wrap: pretty;
+}
+
+:where(button, input, select, textarea),
+::file-selector-button {
+  font: unset;
+  color: unset;
+  text-align: unset;
+  letter-spacing: unset;
+  border-color: unset;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: unset;
+}
+
+:where(input[type='search' i]) {
+  appearance: textfield;
+}
+
+:where(textarea) {
+  // リサイズの許可
+  resize: block;
+}
+
+:where(button, input:is([type='button' i], [type='submit' i], [type='reset' i])),
+::file-selector-button {
+  background-color: unset;
+}
+
+:where(button, input:is([type='button' i], [type='submit' i], [type='reset' i]), [role='tab' i], [role='button' i], [role='option' i]),
+::file-selector-button {
+  // ボタンのダブルタップで起きる拡大を防ぐ
+  touch-action: manipulation;
+}
+
+:where(button:enabled, label[for], select:enabled, input:is([type='button' i], [type='submit' i], [type='reset' i], [type='radio' i], [type='checkbox' i]):enabled, [role='tab' i], [role='button' i], [role='option' i]),
+:where(:enabled)::file-selector-button {
+  cursor: pointer;
+}
+
+:where(fieldset) {
+  min-inline-size: 0;
+  padding-inline: unset;
+  margin-inline: unset;
+  border: unset;
+}
+
+:where(legend) {
+  padding-inline: unset;
+}
+
+::placeholder {
+  // プレースホルダーの透明度をリセット（Firefoxでは低く設定されていることがある？）
+  opacity: unset;
+}
+
+:where(summary) {
+  cursor: pointer;
+
+  // アクセシビリティ対応
+  list-style-type: '';
+}
+
+:where(summary)::-webkit-details-marker {
+  display: none;
+}
+
+:where(dialog, [popover]) {
+  padding-inline: unset;
+  overscroll-behavior-block: contain;
+  border: unset;
+}
+
+:where(dialog:not([open], [popover]), [popover]:not(:popover-open)) {
+  display: none !important;
+}
+
+:where(dialog) {
+  max-inline-size: unset;
+  max-block-size: unset;
+}
+
+:where(dialog)::backdrop {
+  background-color: oklch(0% 0 0deg / 30%);
+}
+
+:where([popover]) {
+  margin-inline: unset;
+}
+
+:where(:focus-visible) {
+  outline-offset: 3px;
+}
+
+[tabindex='-1']:focus {
+  outline: none !important;
+}
+
+:where(:disabled, [aria-disabled='true' i]) {
+  // 無効化された要素のカーソルを元に戻す
+  cursor: default;
+}
+
+[hidden]:not([hidden='until-found' i]) {
+  // hidden属性の動作を確実にしつつ、新しいhidden="until-found"機能は除外する
+  // until-foundは、要素が見つかるまで非表示にするための属性で見つかった場合に自動的にhidden属性を削除する
+  display: none !important;
+}

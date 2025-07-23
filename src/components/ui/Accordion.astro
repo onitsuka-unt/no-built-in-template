@@ -1,0 +1,23 @@
+<details class="accordion-details" data-accordion>
+  <summary class="accordion-summary" data-summary>
+    <span class="accordion-summaryGroup">
+      <span class="accordion-summaryInner"><slot name="summary" /></span>
+      <span class="accordion-icon"></span>
+    </span>
+  </summary>
+  <div class="accordion-contentInner" data-content>
+    <div class="accordion-content"><slot name="content" /></div>
+  </div>
+</details>
+
+<script>
+  import initializeAccordion from '@/scripts/common/initializeAccordion';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const accordions = document.querySelectorAll<HTMLDetailsElement>('[data-accordion]');
+
+    accordions.forEach((target) => {
+      initializeAccordion(target);
+    });
+  });
+</script>

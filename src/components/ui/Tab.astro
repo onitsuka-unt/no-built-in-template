@@ -1,0 +1,24 @@
+<div data-tab-container>
+  <div data-tab-list>
+    <slot name="tabs" />
+  </div>
+  <slot name="tabpanels" />
+</div>
+
+<script>
+  import initializeTabs, { type TabsOptions } from '@/scripts/common/initializeTabs.ts';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const targets = document.querySelectorAll<HTMLElement>('[data-tab-container]');
+
+    const option: TabsOptions = {
+      tablistSelector: '[data-tab-list]',
+      tabSelector: '[data-tab]',
+      tabpanelSelector: '[data-tab-panel]',
+    };
+
+    targets.forEach((target) => {
+      initializeTabs(target, option);
+    });
+  });
+</script>

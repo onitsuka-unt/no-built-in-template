@@ -1,0 +1,18 @@
+---
+import Head from '@/components/Head.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+type Props = {
+  title: string;
+  description: string;
+};
+const { title, description } = Astro.props;
+---
+
+<html lang="ja">
+  <Head title={title} description={description} />
+  <body>
+    <BaseLayout>
+      <slot />
+    </BaseLayout>
+  </body>
+</html>

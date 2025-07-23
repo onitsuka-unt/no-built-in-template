@@ -1,0 +1,45 @@
+---
+/**
+ * 画像をWebp形式で表示するコンポーネント
+ * - SP画像ベースでの表示
+ * - PC画像がある場合は<picture>タグを使用して切り替え
+ * - メディアクエリはベースで576px以上で切り替え
+ */
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends Omit<HTMLAttributes<'img'>, 'src'> {
+  alt: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low';
+  src: ImageMetadata;
+  pcSrc?: ImageMetadata;
+  mediaQuery?: string;
+}
+
+const MEDIA_QUERY = '(min-width: 576px)';
+
+const { src, pcSrc, mediaQuery = MEDIA_QUERY, alt, loading = 'lazy', fetchpriority, ...attrs } = Astro.props;
+const optimizedSpImage = await getImage({ src, format: 'webp' });
+const optimizedPcImage = pcSrc ? await getImage({ src: pcSrc, format: 'webp' }) : null;
+
+if (!optimizedSpImage) {
+  throw new Error(`Failed to retrieve the SP image for the provided src: ${src.src}`);
+}
+
+if (pcSrc && !optimizedPcImage) {
+  throw new Error(`Failed to retrieve the PC image for the provided pcSrc: ${pcSrc.src}`);
+}
+---
+
+{
+  pcSrc && optimizedPcImage ? (
+    <picture>
+      <source media={mediaQuery} srcset={optimizedPcImage.src} width={optimizedPcImage.attributes.width} height={optimizedPcImage.attributes.height} />
+      <img src={optimizedSpImage.src} width={optimizedSpImage.attributes.width} height={optimizedSpImage.attributes.height} alt={alt} loading={loading} {...(fetchpriority && { fetchpriority })} {...attrs} />
+    </picture>
+  ) : (
+    <img src={optimizedSpImage.src} width={optimizedSpImage.attributes.width} height={optimizedSpImage.attributes.height} alt={alt} loading={loading} {...(fetchpriority && { fetchpriority })} {...attrs} />
+  )
+}

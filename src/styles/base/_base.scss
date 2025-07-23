@@ -1,0 +1,25 @@
+:root:has(:modal) {
+  /* モーダルが開いているときはスクロールを無効化 */
+  overflow: hidden;
+}
+
+:where(body) {
+  font-family: var(--typo-font-base);
+  font-size: var(--typo-size-base);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+
+  /* @see https://ics.media/entry/240411/ */
+  word-break: normal; /* 単語の分割はデフォルトに依存 */
+  overflow-wrap: anywhere; /* 収まらない場合に折り返す */
+  line-break: strict; /* 禁則処理を厳格に適用 */
+}
+
+:where(h1) {
+  margin-block: unset;
+}
+
+:where(button, input) {
+  border: unset;
+}

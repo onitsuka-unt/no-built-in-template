@@ -1,0 +1,57 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+const title = 'HOME';
+const description = 'HOME PAGE DESCRIPTION';
+---
+
+<Layout title={title} description={description}>
+  <div class="container">
+    <div class="heading-container">
+      <h1 class="heading">HOME</h1>
+      <ul class="list">
+        <li class="item">
+          <a href="/components/">UIページ</a>
+        </li>
+        <li class="item">
+          <a href="/image/">画像ページ</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</Layout>
+
+<style lang="scss">
+  .container {
+    display: grid;
+    place-items: center;
+    height: 100%;
+  }
+
+  .heading-container {
+    display: grid;
+    row-gap: rem(16);
+  }
+
+  .heading {
+    font-size: rem(24);
+    text-align: center;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: rem(16);
+    align-items: center;
+  }
+
+  .item {
+    & > :where(a) {
+      text-decoration: underline;
+    }
+  }
+</style>
+
+<script>
+  console.log('HOME script loaded');
+</script>

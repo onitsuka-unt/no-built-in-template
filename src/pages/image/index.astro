@@ -1,0 +1,37 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Image from '@/components/common/Image.astro';
+import TestImage from '@/assets/image/test-image.jpg';
+
+const title = 'IMAGE TEST PAGE';
+const description = 'IMAGE TEST PAGE DESCRIPTION';
+---
+
+<Layout title={title} description={description}>
+  <div class="container">
+    <h1 class="heading">IMAGE TEST PAGE</h1>
+    <div class="image-container">
+      <Image src={TestImage} alt="わんちゃん" />
+    </div>
+  </div>
+</Layout>
+
+<style lang="scss">
+  .container {
+    display: grid;
+    place-items: center;
+    height: 100%;
+  }
+
+  .heading {
+    font-size: rem(24);
+  }
+
+  .image-container {
+    max-inline-size: rem(600);
+  }
+</style>
+
+<script>
+  console.log('IMAGE TEST PAGE script loaded');
+</script>

@@ -1,0 +1,88 @@
+@use 'sass:math';
+@use 'sass:meta';
+
+@function vw($size: 16, $viewport: 375, $isMax: false) {
+  $rate: math.div(100, $viewport);
+
+  @if $isMax {
+    @return min($rate * $size * 1vw, math.div($size, 16) * 1rem);
+  } @else {
+    @return $rate * $size * 1vw;
+  }
+}
+
+@function rem($size, $base: 16) {
+  @return math.div($size, $base) * 1rem;
+}
+
+// pxを基準値で割ってcalc()の式を生成する関数
+// $px: 表現したいpx値
+// $base: ベースのpx値（初期値：16px）
+@function vw-calc($px, $base: 16) {
+  @return calc(#{$px} * var(--typo-size-base) / #{$base});
+}
+
+/// clamp()を使ったサイズ計算式を返す関数
+/// @param $min - 最小値
+/// @param $max - 最大値
+/// @param $min-view-port - ビューポート幅の最小値
+/// @param $max-view-port - ビューポート幅の最大値
+@function clamp-size($min, $max, $min-view-port: 375, $max-view-port: 992) {
+  $variable-part: calc(($max - $min) / ($max-view-port - $min-view-port));
+  $constant: calc(($max - $max-view-port * $variable-part) / 16);
+  $min-rem: calc($min / 16 * 1rem);
+  $max-rem: calc($max / 16 * 1rem);
+  $variable-rem: calc($constant * 1rem);
+  $variable-vw: calc(100 * $variable-part * 1vw);
+
+  @return clamp($min-rem, $variable-rem + $variable-vw, $max-rem);
+}
+
+// line-heightの算出
+// $fontSize: 文字サイズ
+// $lineFeed: 行間サイズ
+@function lh($fontSize: 16, $lineFeed: 24) {
+  $lineHeight: math.div($lineFeed, $fontSize);
+
+  @return $lineHeight;
+}
+
+// letter-spacingの算出
+// $value: トラッキング値
+@function ls($value: 100) {
+  $tracking: math.div($value, 1000);
+
+  @return $tracking * 1em;
+}
+
+@mixin hover() {
+  &:focus-visible {
+    @content;
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin hover-transition($property: opacity, $hover-value: var(--opacity-primary), $transition: var(--transition-primary)) {
+  transition: $property $transition;
+
+  @include hover {
+    #{$property}: $hover-value;
+  }
+}
+
+@mixin visually-hidden() {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  border-width: 0 !important;
+  clip: rect(0, 0, 0, 0) !important;
+}

@@ -1,0 +1,36 @@
+{
+  "parser": {
+    ".astro$": "@markuplint/astro-parser"
+  },
+  "extends": [
+    "markuplint:recommended"
+  ],
+  "rules": {
+    "character-reference": false,
+    "no-refer-to-non-existent-id": false
+  },
+  "nodeRules": [
+    {
+      "selector": "script",
+      "rules": {
+        "required-attr": false
+      }
+    },
+    {
+      "selector": "fragment",
+      "rules": {
+        "permitted-contents": false
+      }
+    },
+    {
+      "selector": "html",
+      "rules": {
+        "permitted-contents": {
+          "options": {
+            "ignoreHasMutableChildren": true
+          }
+        }
+      }
+    }
+  ]
+}
